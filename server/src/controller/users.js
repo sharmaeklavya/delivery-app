@@ -135,11 +135,10 @@ module.exports.login = async (req, res) => {
         );
         // setting up a cookie in the browser
         res.cookie("SSID", refreshToken, {
-          // httpOnly: true,
+          httpOnly: true,
           path: "/api/auth/refreshtoken",
           sameSite: "none",
           secure: true,
-          domain: "localhost:3000",
         });
         // sending Access and Refresh Tokens
         res.json({ accessToken: accessToken, refreshToken: refreshToken });
