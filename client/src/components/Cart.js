@@ -66,19 +66,19 @@ function Cart() {
         <>
           <div className="card-body cart-body" style={{ overflowY: "auto" }}>
             <div className="row">
-              <div className="col-sm-5 col-md-6 col-lg-5 px-1">
+              <div className="col col-sm-5 col-md-6 col-lg-5 px-1">
                 <h5 className="meal-subtitle text-left">Meal</h5>
                 <hr />
               </div>
-              <div className="col-sm-2 col-md-6 col-lg-2 px-1">
+              <div className="col col-sm-2 col-md-6 col-lg-2 px-1">
                 <h5 className="meal-subtitle text-right">Px</h5>
                 <hr />
               </div>
-              <div className="col-sm-2 col-md-6 col-lg-2 px-1">
+              <div className="col col-sm-2 col-md-6 col-lg-2 px-1">
                 <h5 className="meal-subtitle text-right">Qty</h5>
                 <hr />
               </div>
-              <div className="col-sm-3 col-md-6 col-lg-3 px-1">
+              <div className="col col-sm-3 col-md-6 col-lg-3 px-1">
                 <h5 className="meal-subtitle text-right">Total</h5>
                 <hr />
               </div>
@@ -91,7 +91,7 @@ function Cart() {
                 <div className="col col-sm-2 col-md-6 col-lg-2 px-1">
                   <p className="cart-text text-right">{order.price}</p>
                 </div>
-                <div className="col col-sm-2 col-md-6 col-lg-2 px-1 ">
+                <div className="col col-sm-2 col-md-6 col-lg-2 px-1">
                   <p className="cart-text text-right">{order.qty}</p>
                 </div>
                 <div className="col col-sm-3 col-md-6 col-lg-3 px-1">

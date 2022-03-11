@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import decode from "jwt-decode";
 import baseApi from "../apis/baseApi";
 
 const Header = () => {
+  const history = useHistory();
   const validUser = useSelector((state) => state.validUsers.user);
   const [user, setUser] = useState({ firstName: "", lastName: "", email: "" });
 
@@ -24,7 +25,7 @@ const Header = () => {
     try {
       await baseApi.post("api/auth/logout", { id: user.id });
       localStorage.removeItem("__SSID");
-      window.location.reload();
+      history.push("/");
     } catch (err) {
       console.log(err.response);
     }
