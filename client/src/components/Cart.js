@@ -10,7 +10,7 @@ function Cart() {
   const [cartOrder, setCartOrder] = useState([]);
   const [grandTotal, setGrandTotal] = useState(0);
   const orders = useSelector((state) => state.allOrders);
-  const validUser = useSelector((state) => state.validateUser.user);
+  const validUser = useSelector((state) => state.validUsers.user);
 
   function lastIndexOf(val1, val2) {
     let index = -1;
@@ -47,7 +47,7 @@ function Cart() {
           unit_amount: order.price * 100,
           product_data: {
             name: order.name,
-            images: [`https://proj-delivery.netlify.app${order.image}`],
+            images: [`https://proj-delivery.herokuapp.com${order.image}`],
           },
         },
       };

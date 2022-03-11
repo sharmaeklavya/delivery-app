@@ -55,7 +55,7 @@ export const orderReducer = (state = [], { type, payload }) => {
   }
 };
 
-export const validateReducer = (state = [], { type, payload }) => {
+export const userReducer = (state = [], { type, payload }) => {
   switch (type) {
     case Types.VALID_USER:
       return { ...state, user: payload };

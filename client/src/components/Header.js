@@ -5,7 +5,7 @@ import decode from "jwt-decode";
 import baseApi from "../apis/baseApi";
 
 const Header = () => {
-  const validUser = useSelector((state) => state.validateUser.user);
+  const validUser = useSelector((state) => state.validUsers.user);
   const [user, setUser] = useState({ firstName: "", lastName: "", email: "" });
 
   useEffect(() => {

@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
-import { mealReducer, orderReducer, validateReducer } from "./reducer";
+import { mealReducer, orderReducer, userReducer } from "./reducer";
 
 const reducers = combineReducers({
   allMeals: mealReducer,
   allOrders: orderReducer,
-  validateUser: validateReducer,
+  validUsers: userReducer,
 });
 
 export default reducers;
