@@ -137,7 +137,7 @@ module.exports.login = async (req, res) => {
         res.cookie("SSID", refreshToken, {
           httpOnly: true,
           path: "/api/auth/refreshtoken",
-          sameSite: "none",
+          sameSite: "Strict",
           secure: true,
         });
         // sending Access and Refresh Tokens
