@@ -43,6 +43,10 @@ function Signin() {
         const res = await baseApi.post("api/auth/login", values);
         if (res.data.refreshToken) {
           dispatch({ type: Types.VALID_USER, payload: res.data });
+          localStorage.setItem(
+            "__SSID",
+            "no2dXioLpqW3PjdlqpekErDLFD712Svdmjdupals"
+          );
           history.push("/my-account");
         }
       } catch (err) {

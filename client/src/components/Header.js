@@ -23,6 +23,7 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       await baseApi.post("api/auth/logout", { id: user.id });
+      localStorage.removeItem("__SSID");
       window.location.reload();
     } catch (err) {
       console.log(err.response);

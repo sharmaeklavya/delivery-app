@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./App.css";
 import {
   BrowserRouter as Router,
@@ -15,16 +15,8 @@ import Signup from "./components/Signup";
 import Signin from "./components/Signin";
 import Canceled from "./components/Canceled";
 import Orders from "./components/Orders";
-import { useSelector } from "react-redux";
 
 function App() {
-  const validUser = useSelector((state) => state.validUsers.user);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    setIsLoggedIn(true);
-  }, [validUser]);
-
   return (
     <Router>
       <Switch>
@@ -32,14 +24,26 @@ function App() {
         <Protected path="/my-orders" component={Orders} exact />
         <Route path="/success" component={Payment} exact />
         <Route path="canceled" component={Canceled} />
-        <Route path="/sign-up" component={Signup} exact>
-          {isLoggedIn ? <Redirect to="/my-account" /> : <Signup />}
+        <Route path="/sign-up" exact>
+          {localStorage.getItem("__SSID") ? (
+            <Redirect to="/my-account" />
+          ) : (
+            <Signup />
+          )}
         </Route>
-        <Route path="/sign-in" component={Signin} exact>
-          {isLoggedIn ? <Redirect to="/my-account" /> : <Signin />}
+        <Route path="/sign-in" exact>
+          {localStorage.getItem("__SSID") ? (
+            <Redirect to="/my-account" />
+          ) : (
+            <Signin />
+          )}
         </Route>
-        <Route path="/" component={Home} exact>
-          {isLoggedIn ? <Redirect to="/my-account" /> : <Home />}
+        <Route path="/" exact>
+          {localStorage.getItem("__SSID") ? (
+            <Redirect to="/my-account" />
+          ) : (
+            <Home />
+          )}
         </Route>
         <Route>
           <div className="vh-100 d-flex justify-content-center align-items-center">
