@@ -10,7 +10,7 @@
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.26.0",
-    "bootstrap": "^4.6.1",
+    "bootstrap": "4.5",
     "formik": "^2.2.9",
     "jwt-decode": "^3.1.2",
     "react": "^17.0.2",
@@ -29,7 +29,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http:/localhost:4500",
+  "proxy": "http://localhost:3001",
   "eslintConfig": {
     "extends": [
       "react-app",

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Route, Redirect } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Types } from "../redux/constants/types";
 import Wait from "./Wait";
 import baseApi from "../apis/baseApi";
@@ -8,13 +8,10 @@ import baseApi from "../apis/baseApi";
 function Protected({ component: Component, ...rest }) {
   const dispatch = useDispatch();
   const [isLoggedIn, setIsLoggedIn] = useState(-1);
-  const validUser = useSelector((state) => state.validateUser.user);
 
   useEffect(() => {
-    console.log(validUser);
-
     baseApi
-      .post("api/auth/refreshtoken", {}, { withCredentials: true })
+      .post("api/auth/refreshtoken", {})
       .then((res) => {
         dispatch({ type: Types.VALID_USER, payload: res.data });
         setIsLoggedIn(1);

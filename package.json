@@ -1,13 +1,13 @@
 {
-  "name": "server",
+  "name": "index",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "engines": {
     "node": "v14.17.4"
   },  
   "scripts": {
-    "start": "node server/server.js",
+    "start": "node server/index.js",
     "build": "cd client && npm install && npm run build"
   },
   "keywords": [],
