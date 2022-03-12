@@ -74,9 +74,11 @@
   width: 1.6rem;
   height: 1.6rem;
   margin: 0;
+  border: none;
   border-radius: 10%;
   font-size: var(--textSize);
   color: var(--whiteColor);
+  text-decoration: none;
 }
 
 .cta-btn:hover{
