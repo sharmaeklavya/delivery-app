@@ -3,6 +3,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const orderSchema = new Schema({
+  userId: {
+    type: String,
+    trim: true,
+    required: true,
+  },
   orderId: {
     type: String,
     trim: true,
@@ -49,7 +54,7 @@ const orderSchema = new Schema({
     required: true,
   },
   orderPaid: {
-    type: Number,
+    type: String,
     enum: ["yes", "no"],
     required: true,
   },
