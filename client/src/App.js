@@ -42,8 +42,8 @@ function App() {
       <Switch>
         <Protected path="/my-account" component={Account} exact />
         <Protected path="/my-orders" component={Orders} exact />
-        <Protected path="/success" component={Success} />
-        <Protected path="cancelled" component={Cancelled} exact />
+        <Protected path="/cancelled" component={Cancelled} exact />
+        <Route path="/success" component={Success} />
         <Route path="/sign-up" component={Signup} exact />
         <Route path="/sign-in" exact>
           {userLoggedIn ? <Redirect to="/my-account" /> : <Signin />}

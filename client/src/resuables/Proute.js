@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Route, Redirect } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Types } from "../redux/constants/types";
-import Wait from "./Wait";
 import baseApi from "../apis/baseApi";
+import Wait from "./Wait";
 
 function Protected({ component: Component, ...rest }) {
   const dispatch = useDispatch();

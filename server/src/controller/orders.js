@@ -13,7 +13,7 @@ module.exports.checkout = async (req, res) => {
       mode: "payment",
       line_items,
       success_url: `${APP_URL}/success/session_id=CHECKOUT_SESSION_ID`,
-      cancel_url: `${APP_URL}/canceled`,
+      cancel_url: `${APP_URL}/cancelled`,
       shipping_address_collection: {
         allowed_countries: [
           "CA",
