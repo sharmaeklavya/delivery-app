@@ -120,9 +120,9 @@ function Cart() {
           </div>
         </>
       ) : (
-        <div className="card-body cart-body">
+        <div className="card-body cart-body" style={{ maxWidth: "280px" }}>
           <div className="row">
-            <div className="col-sm-8 col-md-10 col-lg-12 px-1">
+            <div className="col-sm-8 col-md-10 col-lg-10 px-1">
               <h5 className="meal-subtitle text-center">
                 Let's add some food here.
               </h5>

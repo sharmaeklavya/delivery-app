@@ -40,13 +40,17 @@ function Counter(props) {
 
   return (
     <>
-      <button type="button" className="cta-btn add-btn" onClick={addToCart}>
+      <button
+        type="button"
+        className="cta-btn add-btn text-center"
+        onClick={addToCart}
+      >
         +
       </button>
       <span className="meal-text m-1">{count}</span>
       <button
         type="button"
-        className="cta-btn remove-btn"
+        className="cta-btn remove-btn text-center"
         onClick={removeFromCart}
       >
         -

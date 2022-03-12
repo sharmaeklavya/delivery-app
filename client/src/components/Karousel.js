@@ -60,7 +60,7 @@ const Karousel = (props) => {
                   <p className="meal-text">
                     Rs. <span>{m.mealPrice}</span>
                   </p>
-                  <div className="cta">
+                  <div className="text-center">
                     <Counter
                       id={m._id}
                       name={m.mealName}
