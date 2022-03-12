@@ -1,8 +1,6 @@
 ## Delivery App
 
-#### [Live Preview - Delivery App](https://proj-delivery.netlify.app)
-
-#### [Server side code](https://github.com/sharmaeklavya/delivery-app/tree/server)
+#### [Live Preview - Delivery App](https://proj-delivery.herokuapp.com)
 
 ### Technologies used for this project
 

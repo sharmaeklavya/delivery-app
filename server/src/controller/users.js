@@ -126,7 +126,7 @@ module.exports.login = async (req, res) => {
         };
         const accessToken = signedJWT(user);
         const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_KEY, {
-          expiresIn: "2h",
+          expiresIn: "1h",
         });
         // saving refresh token in the database
         await UserCollection.updateOne(
@@ -139,6 +139,7 @@ module.exports.login = async (req, res) => {
           path: "/api/auth/refreshtoken",
           sameSite: "Strict",
           secure: true,
+          expires: new Date(Date.now() + 3600000),
         });
         // sending Access and Refresh Tokens
         res.json({ accessToken: accessToken, refreshToken: refreshToken });

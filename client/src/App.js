@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import {
   BrowserRouter as Router,
@@ -15,35 +15,41 @@ import Signup from "./components/Signup";
 import Signin from "./components/Signin";
 import Canceled from "./components/Canceled";
 import Orders from "./components/Orders";
+import baseApi from "./apis/baseApi";
 
 function App() {
+  const [userLoggedIn, setLoggedIn] = useState(false);
+
+  const handleLogIn = () => {
+    baseApi
+      .post("api/auth/refreshtoken", {})
+      .then((res) => {
+        if (res.data.refreshToken) setLoggedIn(true);
+      })
+      .catch((err) => {
+        console.error(err.response.data);
+      });
+  };
+
+  useEffect(() => {
+    handleLogIn();
+  }, []);
+
   return (
     <Router>
       <Switch>
         <Protected path="/my-account" component={Account} exact />
         <Protected path="/my-orders" component={Orders} exact />
-        <Route path="/success" component={Payment} exact />
-        <Route path="canceled" component={Canceled} />
+        <Protected path="/success" component={Payment} exact />
+        <Protected path="canceled" component={Canceled} exact />
         <Route path="/sign-up" exact>
-          {localStorage.getItem("__SSID") ? (
-            <Redirect to="/my-account" />
-          ) : (
-            <Signup />
-          )}
+          {userLoggedIn ? <Redirect to="/my-account" /> : <Signup />}
         </Route>
         <Route path="/sign-in" exact>
-          {localStorage.getItem("__SSID") ? (
-            <Redirect to="/my-account" />
-          ) : (
-            <Signin />
-          )}
+          {userLoggedIn ? <Redirect to="/my-account" /> : <Signin />}
         </Route>
         <Route path="/" exact>
-          {localStorage.getItem("__SSID") ? (
-            <Redirect to="/my-account" />
-          ) : (
-            <Home />
-          )}
+          {userLoggedIn ? <Redirect to="/my-account" /> : <Home />}
         </Route>
         <Route>
           <div className="vh-100 d-flex justify-content-center align-items-center">

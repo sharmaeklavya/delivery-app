@@ -24,7 +24,6 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       await baseApi.post("api/auth/logout", { id: user.id });
-      localStorage.removeItem("__SSID");
       history.push("/");
     } catch (err) {
       console.log(err.response);
