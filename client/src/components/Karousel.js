@@ -11,7 +11,7 @@ const Karousel = (props) => {
 
   const handleResize = () => {
     if (window.innerWidth <= "375") {
-      setPerView(1.4);
+      setPerView(1.8);
     } else if (window.innerWidth <= "540") {
       setPerView(2);
     } else if (window.innerWidth <= "768") {
