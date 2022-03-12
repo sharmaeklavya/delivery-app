@@ -93,13 +93,13 @@ const Header = () => {
                     className="dropdown-menu"
                     aria-labelledby="navbarDropdown"
                   >
-                    <Link to="/my-orders">
+                    <Link to="/my-orders" className="card-link">
                       <button type="button" className="dropdown-item">
                         My Orders
                       </button>
                     </Link>
-                    <Link to="/my-settings">
-                      <div className="dropdown-divider"></div>
+                    <div className="dropdown-divider"></div>
+                    <Link to="/my-settings" className="card-link">
                       <button type="button" className="dropdown-item">
                         My Settings
                       </button>
