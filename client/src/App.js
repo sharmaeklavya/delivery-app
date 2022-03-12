@@ -22,7 +22,7 @@ function App() {
   const [userLoggedIn, setLoggedIn] = useState(false);
 
   const handleLogIn = () => {
-    const res = baseApi
+    baseApi
       .post("api/auth/refreshtoken", {})
       .then((res) => {
         if (res.data.refreshToken) setLoggedIn(true);
@@ -31,12 +31,11 @@ function App() {
         setLoggedIn(false);
         console.error(err.response.data);
       });
-    if (!res) setLoggedIn(false);
   };
 
   useEffect(() => {
     handleLogIn();
-  }, [userLoggedIn]);
+  }, []);
 
   return (
     <Router>
