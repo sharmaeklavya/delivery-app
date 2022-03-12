@@ -7,44 +7,45 @@ import {
   Link,
   Redirect,
 } from "react-router-dom";
+import baseApi from "./apis/baseApi";
 import Protected from "./resuables/Proute";
 import Account from "./components/Account";
-import Payment from "./components/Payment";
+import Success from "./components/Success";
+import Cancelled from "./components/Cancelled";
+
 import Home from "./components/Home";
 import Signup from "./components/Signup";
 import Signin from "./components/Signin";
-import Canceled from "./components/Canceled";
 import Orders from "./components/Orders";
-import baseApi from "./apis/baseApi";
 
 function App() {
   const [userLoggedIn, setLoggedIn] = useState(false);
 
   const handleLogIn = () => {
-    baseApi
+    const res = baseApi
       .post("api/auth/refreshtoken", {})
       .then((res) => {
         if (res.data.refreshToken) setLoggedIn(true);
       })
       .catch((err) => {
+        setLoggedIn(false);
         console.error(err.response.data);
       });
+    if (!res) setLoggedIn(false);
   };
 
   useEffect(() => {
     handleLogIn();
-  }, []);
+  }, [userLoggedIn]);
 
   return (
     <Router>
       <Switch>
         <Protected path="/my-account" component={Account} exact />
         <Protected path="/my-orders" component={Orders} exact />
-        <Protected path="/success" component={Payment} exact />
-        <Protected path="canceled" component={Canceled} exact />
-        <Route path="/sign-up" exact>
-          {userLoggedIn ? <Redirect to="/my-account" /> : <Signup />}
-        </Route>
+        <Protected path="/success" component={Success} />
+        <Protected path="cancelled" component={Cancelled} exact />
+        <Route path="/sign-up" component={Signup} exact />
         <Route path="/sign-in" exact>
           {userLoggedIn ? <Redirect to="/my-account" /> : <Signin />}
         </Route>

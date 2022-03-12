@@ -23,8 +23,11 @@ const Header = () => {
 
   const handleLogout = async () => {
     try {
-      await baseApi.post("api/auth/logout", { id: user.id });
-      history.push("/");
+      const res = await baseApi.post("api/auth/logout", { id: user.id });
+      if (res.data) {
+        history.push("/");
+        window.location.reload();
+      }
     } catch (err) {
       console.log(err.response);
     }
@@ -51,7 +54,7 @@ const Header = () => {
           <ul className="navbar-nav ml-auto">
             {!validUser ? (
               <>
-                <li className="nav-item">
+                <li className="nav-item my-1">
                   <Link to="/sign-up">
                     <button
                       className="darkBrown-btn rounded-sm shadow-lg mx-2 my-2 my-sm-0"
@@ -61,7 +64,7 @@ const Header = () => {
                     </button>
                   </Link>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item my-1">
                   <Link to="/sign-in">
                     <button
                       className="magenta-btn rounded-sm shadow-lg mx-2 my-2 my-sm-0"
@@ -74,7 +77,7 @@ const Header = () => {
               </>
             ) : (
               <>
-                <li className="nav-item dropdown">
+                <li className="nav-item my-1 dropdown">
                   <button
                     type="button"
                     className="dropdown-toggle darkBrown-btn rounded-sm shadow-lg m-2 my-sm-0"
@@ -103,7 +106,7 @@ const Header = () => {
                     </Link>
                   </div>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item my-1">
                   <Link to="/" onClick={handleLogout}>
                     <button
                       className="magenta-btn rounded-sm shadow-lg m-2 my-sm-0"

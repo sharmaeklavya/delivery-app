@@ -164,16 +164,16 @@ module.exports.login = async (req, res) => {
 module.exports.logout = async (req, res) => {
   try {
     // deleting refreshtoken from the database
-    await UserCollection.updateOne(
+    const tokenDeleted = await UserCollection.updateOne(
       { _id: ObjectId(req.body.id) },
       { $unset: { refreshToken: 1 } }
     );
-
-    // clearing cookies from the browser
-    res.clearCookie("SSID");
-    // success message
-    res.status(200).json({ message: "Logged out successfully." });
-
+    if (tokenDeleted) {
+      // clearing cookies from the browser
+      const cleared = res.clearCookie("SSID");
+      // success message
+      res.status(200).json({ message: "Logged out successfully." });
+    }
     // if any errors, log them
   } catch (err) {
     const errors = handleErrors(err);
