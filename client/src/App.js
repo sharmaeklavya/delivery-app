@@ -52,7 +52,7 @@ function App() {
         <Route path="/" exact>
           {userLoggedIn ? <Redirect to="/my-account" /> : <Home />}
         </Route>
-        <Route>
+        <Route path="*">
           <div className="vh-100 d-flex justify-content-center align-items-center">
             <div className="text-center">
               <p className="lead"> 404 Page not found</p>
