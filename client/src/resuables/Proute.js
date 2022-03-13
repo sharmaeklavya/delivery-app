@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Route, Redirect } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Types } from "../redux/constants/types";
-import baseApi from "../apis/baseApi";
+import { Auth } from "./Auth";
 import Wait from "./Wait";
 
 function Protected({ component: Component, ...rest }) {
@@ -10,16 +10,13 @@ function Protected({ component: Component, ...rest }) {
   const [isLoggedIn, setIsLoggedIn] = useState(-1);
 
   useEffect(() => {
-    baseApi
-      .post("api/auth/refreshtoken", {})
-      .then((res) => {
-        dispatch({ type: Types.VALID_USER, payload: res.data });
+    (async () => {
+      const response = await Auth.getToken();
+      if (response) {
+        dispatch({ type: Types.VALID_USER, payload: response });
         setIsLoggedIn(1);
-      })
-      .catch((err) => {
-        setIsLoggedIn(0);
-        console.error(err);
-      });
+      } else setIsLoggedIn(0);
+    })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useStripe } from "@stripe/react-stripe-js";
 import baseApi from "../apis/baseApi";
+import { Auth } from "../resuables/Auth";
 
 function Cart() {
   const stripe = useStripe();
@@ -52,18 +53,55 @@ function Cart() {
         },
       };
     });
-    const response = await baseApi.post("api/meals/checkout", { line_items });
-    const { sessionId } = response.data;
+
+    const checkoutResponse = await baseApi.post("api/meals/checkout", {
+      line_items,
+    });
+    const { sessionId } = checkoutResponse.data;
+
+    if (checkoutResponse.data) handleAddOrder();
+
     const { error } = await stripe.redirectToCheckout({
       sessionId,
     });
     if (error) console.log(error);
   };
 
+  const handleAddOrder = async () => {
+    const orderItems = cartOrder.map((order) => {
+      return {
+        meals: [
+          {
+            mealId: order.id,
+            mealName: order.name,
+            mealImg: order.image,
+            mealPrice: order.price,
+            mealQuantity: order.quantity,
+          },
+        ],
+        deliveryStatus: "delivered",
+        paymentStatus: "paid",
+        totalPrice: order.total,
+      };
+    });
+
+    try {
+      const response = await Auth.getToken();
+      if (response) {
+        const config = {
+          headers: { authorization: `Bearer ${response.refreshToken}` },
+        };
+        await baseApi.post("api/orders/addorder", orderItems, config);
+      }
+    } catch (err) {
+      console.log(err.response);
+    }
+  };
+
   return (
     <div className="card border my-3 position-md-fixed">
       {grandTotal > 1 ? (
-        <>
+        <React.Fragment>
           <div className="card-body cart-body" style={{ overflowY: "auto" }}>
             <div className="row">
               <div className="col col-sm-5 col-md-6 col-lg-5 px-1">
@@ -118,7 +156,7 @@ function Cart() {
               </div>
             </div>
           </div>
-        </>
+        </React.Fragment>
       ) : (
         <div className="card-body cart-body" style={{ maxWidth: "280px" }}>
           <div className="row">

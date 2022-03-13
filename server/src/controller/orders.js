@@ -78,7 +78,8 @@ module.exports.addorder = async (req, res) => {
     const {
       meals: [{ mealId, mealName, mealImg, mealPrice, mealQuantity }],
       deliveryStatus,
-      orderPaid,
+      paymentStatus,
+      totalPrice,
     } = req.body;
 
     if (!user) return res.sendStatus(401);
@@ -97,7 +98,8 @@ module.exports.addorder = async (req, res) => {
         },
       ],
       deliveryStatus,
-      orderPaid,
+      paymentStatus,
+      totalPrice,
     };
 
     const orderUpdated = await OrderCollection.create(mealOrder);

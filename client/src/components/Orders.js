@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
+import Footer from "./Footer";
 import baseApi from "../apis/baseApi";
+import { Auth } from "../resuables/Auth";
 
 function Orders() {
   const [orderList, setOrderList] = useState([]);
 
   const handleAuth = async () => {
     try {
-      const tokenRes = await baseApi.post("api/auth/refreshtoken", {});
-      if (tokenRes) {
-        const orders = await baseApi.post(
-          "api/orders/userorders",
-          {},
-          { headers: { authorization: `Bearer ${tokenRes.data.refreshToken}` } }
-        );
+      const response = await Auth.getToken();
+      if (response) {
+        const config = {
+          headers: { authorization: `Bearer ${response.refreshToken}` },
+        };
+        const orders = await baseApi.post("api/orders/userorders", {}, config);
         setOrderList(orders.data);
       } else setOrderList([]);
     } catch (err) {
@@ -32,38 +33,74 @@ function Orders() {
           <Header />
         </div>
         <div className="col-md-12">
+          <div className="d-flex justify-content-between">
+            <hr className="straight-line" />
+            <h5 className="section-title text-right">My Orders</h5>
+          </div>
           <section className="px-3 py-2">
-            <div className="row">
-              <div className="col-md-3">
-                <h5 className="lead">Order Id</h5>
-              </div>
-              <div className="col-md-3">
-                <h5 className="lead">Order Date</h5>
-              </div>
-              <div className="col-md-3">
-                <h5 className="lead">Status</h5>
-              </div>
-              <div className="col-md-3">
-                <h5 className="lead">Paid?</h5>
-              </div>
+            <div className="row justify-content-center align-items-center">
+              {orderList.map((order) =>
+                order.meals.map((meal, i) => (
+                  <React.Fragment key={i}>
+                    <div key={i} className="col-md-4">
+                      <div className="card my-2" style={{ height: "10rem" }}>
+                        <img
+                          className="card-img-top"
+                          src={meal.mealImg}
+                          alt={meal.mealName}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-md-8">
+                      <div className="row">
+                        <div className="col-md-4">
+                          <p className="meal-title">Item : {meal.mealName}</p>
+                        </div>
+                        <div className="col-md-4">
+                          <p className="meal-subtitle">
+                            Price : {meal.mealPrice}
+                          </p>
+                        </div>
+                        <div className="col-md-4">
+                          <p className="meal-subtitle">
+                            Quantity : {meal.mealQuantity}
+                          </p>
+                        </div>
+                        <div className="col-md-4">
+                          <p className="meal-subtitle">
+                            Subtotal : {meal.totalPrice}
+                          </p>
+                        </div>
+                        <div className="col-md-4">
+                          <p className="meal-subtitle">
+                            Date : {order.orderDate.split("T")[0]}
+                          </p>
+                        </div>
+                        <div className="col-md-4">
+                          <p className="meal-subtitle">
+                            Time : {order.orderDate.split("T")[1]}
+                          </p>
+                        </div>
+                        <div className="col-md-4">
+                          <p className="meal-subtitle">
+                            Paid? : {order.paymentStatus}
+                          </p>
+                        </div>
+                        <div className="col-md-4">
+                          <p className="meal-subtitle">
+                            Status : {order.deliveryStatus}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </React.Fragment>
+                ))
+              )}
             </div>
-            {orderList.map((order) => (
-              <div className="row">
-                <div className="col-md-3">
-                  <h5 className="h6">{order.orderId}</h5>
-                </div>
-                <div className="col-md-3">
-                  <h5 className="h6">{order.orderDate.split("T")[0]}</h5>
-                </div>
-                <div className="col-md-3">
-                  <h5 className="h6">{order.deliveryStatus}</h5>
-                </div>
-                <div className="col-md-3">
-                  <h5 className="h6">{order.orderPaid}</h5>
-                </div>
-              </div>
-            ))}
           </section>
+        </div>
+        <div className="col-md-12">
+          <Footer />
         </div>
       </div>
     </div>

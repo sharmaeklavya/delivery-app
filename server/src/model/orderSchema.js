@@ -47,15 +47,19 @@ const orderSchema = new Schema({
       },
     },
   ],
+  totalPrice: {
+    type: Number,
+    required: true,
+  },
   deliveryStatus: {
     type: String,
     trim: true,
     enum: ["delivered", "not delivered", "on the way"],
     required: true,
   },
-  orderPaid: {
+  paymentStatus: {
     type: String,
-    enum: ["yes", "no"],
+    enum: ["paid", "not paid"],
     required: true,
   },
 });

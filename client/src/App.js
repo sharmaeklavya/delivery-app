@@ -7,7 +7,7 @@ import {
   Link,
   Redirect,
 } from "react-router-dom";
-import baseApi from "./apis/baseApi";
+import { Auth } from "./resuables/Auth";
 import Protected from "./resuables/Proute";
 import Account from "./components/Account";
 import Success from "./components/Success";
@@ -21,20 +21,12 @@ import Orders from "./components/Orders";
 function App() {
   const [userLoggedIn, setLoggedIn] = useState(false);
 
-  const handleLogIn = () => {
-    baseApi
-      .post("api/auth/refreshtoken", {})
-      .then((res) => {
-        if (res.data.refreshToken) setLoggedIn(true);
-      })
-      .catch((err) => {
-        setLoggedIn(false);
-        console.error(err.response.data);
-      });
-  };
-
   useEffect(() => {
-    handleLogIn();
+    (async () => {
+      const response = await Auth.getToken();
+      if (response.refreshToken) setLoggedIn(true);
+      else setLoggedIn(false);
+    })();
   }, []);
 
   return (

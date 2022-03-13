@@ -36,9 +36,9 @@ const Header = () => {
   return (
     <header className="mb-3">
       <nav className="navbar navbar-expand-lg navbar-light">
-        <div className="logo">
+        <Link to="/my-account" className="logo">
           <img src="/logo.png" alt="pizza delivery logo" />
-        </div>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
