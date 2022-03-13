@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
-import Footer from "./Footer";
 import baseApi from "../apis/baseApi";
 import { Auth } from "../resuables/Auth";
 
@@ -18,7 +17,7 @@ function Orders() {
         setOrderList(orders.data);
       } else setOrderList([]);
     } catch (err) {
-      console.log(err.response);
+      console.error(err.response);
     }
   };
 
@@ -42,16 +41,16 @@ function Orders() {
               {orderList.map((order) =>
                 order.meals.map((meal, i) => (
                   <React.Fragment key={i}>
-                    <div key={i} className="col-md-4">
-                      <div className="card my-2" style={{ height: "10rem" }}>
+                    <div key={i} className="col col-md-3">
+                      <div className="card my-2">
                         <img
-                          className="card-img-top"
+                          className="meal-img"
                           src={meal.mealImg}
                           alt={meal.mealName}
                         />
                       </div>
                     </div>
-                    <div className="col-md-8">
+                    <div className="col col-md-9">
                       <div className="row">
                         <div className="col-md-4">
                           <p className="meal-title">Item : {meal.mealName}</p>
@@ -68,7 +67,7 @@ function Orders() {
                         </div>
                         <div className="col-md-4">
                           <p className="meal-subtitle">
-                            Subtotal : {meal.totalPrice}
+                            Subtotal : {order.totalPrice}
                           </p>
                         </div>
                         <div className="col-md-4">
@@ -83,12 +82,12 @@ function Orders() {
                         </div>
                         <div className="col-md-4">
                           <p className="meal-subtitle">
-                            Paid? : {order.paymentStatus}
+                            Payment? : {order.paymentStatus}
                           </p>
                         </div>
                         <div className="col-md-4">
                           <p className="meal-subtitle">
-                            Status : {order.deliveryStatus}
+                            Delivery? : {order.deliveryStatus}
                           </p>
                         </div>
                       </div>
@@ -98,9 +97,6 @@ function Orders() {
               )}
             </div>
           </section>
-        </div>
-        <div className="col-md-12">
-          <Footer />
         </div>
       </div>
     </div>

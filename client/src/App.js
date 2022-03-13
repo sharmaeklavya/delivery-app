@@ -12,6 +12,7 @@ import Protected from "./resuables/Proute";
 import Account from "./components/Account";
 import Success from "./components/Success";
 import Cancelled from "./components/Cancelled";
+import Settings from "./components/Settings";
 
 import Home from "./components/Home";
 import Signup from "./components/Signup";
@@ -34,6 +35,7 @@ function App() {
       <Switch>
         <Protected path="/my-account" component={Account} exact />
         <Protected path="/my-orders" component={Orders} exact />
+        <Protected path="/my-settings" component={Settings} />
         <Protected path="/cancelled" component={Cancelled} exact />
         <Protected path="/success" component={Success} />
         <Route path="/sign-up" component={Signup} exact />
