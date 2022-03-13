@@ -6,7 +6,7 @@ export const Auth = {
       const res = await baseApi.post("api/auth/refreshtoken", {});
       return await res.data;
     } catch (err) {
-      console.log(err.response);
+      console.log(err.response.data);
     }
   },
 };

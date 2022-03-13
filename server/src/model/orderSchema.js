@@ -28,7 +28,12 @@ const orderSchema = new Schema({
       mealName: {
         type: String,
         lowercase: true,
-        trim: true,
+        required: true,
+      },
+      mealType: {
+        type: String,
+        lowercase: true,
+        enum: ["topping", "beverage", "pizza"],
         required: true,
       },
       mealImg: {
@@ -53,12 +58,13 @@ const orderSchema = new Schema({
   },
   deliveryStatus: {
     type: String,
-    trim: true,
+    lowercase: true,
     enum: ["delivered", "not delivered", "on the way"],
     required: true,
   },
   paymentStatus: {
     type: String,
+    lowercase: true,
     enum: ["paid", "not paid"],
     required: true,
   },

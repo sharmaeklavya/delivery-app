@@ -64,7 +64,7 @@ function Cart() {
     const { error } = await stripe.redirectToCheckout({
       sessionId,
     });
-    if (error) console.log(error);
+    if (error) console.error(error);
   };
 
   const handleAddOrder = async () => {
@@ -74,6 +74,7 @@ function Cart() {
           {
             mealId: order.id,
             mealName: order.name,
+            mealType: order.type,
             mealImg: order.image,
             mealPrice: order.price,
             mealQuantity: order.quantity,
@@ -91,15 +92,10 @@ function Cart() {
         const config = {
           headers: { authorization: `Bearer ${response.refreshToken}` },
         };
-        const res = await baseApi.post(
-          "api/orders/addorder",
-          orderItems,
-          config
-        );
-        console.log(res.data);
+        await baseApi.post("api/orders/addorder", orderItems, config);
       }
     } catch (err) {
-      console.log(err.response);
+      console.error(err.response);
     }
   };
 

@@ -76,7 +76,7 @@ module.exports.addorder = async (req, res) => {
 
     // destructing order form fields
     const {
-      meals: [{ mealId, mealName, mealImg, mealPrice, mealQuantity }],
+      meals: [{ mealId, mealName, mealType, mealImg, mealPrice, mealQuantity }],
       deliveryStatus,
       paymentStatus,
       totalPrice,
@@ -92,6 +92,7 @@ module.exports.addorder = async (req, res) => {
         {
           mealId: ObjectId(mealId),
           mealName,
+          mealType,
           mealImg,
           mealPrice,
           mealQuantity,
@@ -119,7 +120,7 @@ module.exports.addorder = async (req, res) => {
     );
 
     if (!userOrderUpdated) res.sendStatus(400);
-    else res.status(200).json(`Order ${orderId} processed successfully.`);
+    else res.status(200).json(`Order no ${orderId} processed successfully.`);
 
     // if any errors, log them
   } catch (err) {
