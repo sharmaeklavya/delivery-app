@@ -57,9 +57,10 @@ function Cart() {
     const checkoutResponse = await baseApi.post("api/meals/checkout", {
       line_items,
     });
-    const { sessionId } = checkoutResponse.data;
 
-    if (checkoutResponse.data) handleAddOrder();
+    if (checkoutResponse) handleAddOrder();
+
+    const { sessionId } = checkoutResponse.data;
 
     const { error } = await stripe.redirectToCheckout({
       sessionId,
