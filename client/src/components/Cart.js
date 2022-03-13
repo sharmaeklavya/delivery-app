@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useStripe } from "@stripe/react-stripe-js";
 import baseApi from "../apis/baseApi";
 import { Auth } from "../resuables/Auth";
+import axios from "axios";
 
 function Cart() {
   const stripe = useStripe();
@@ -12,6 +13,21 @@ function Cart() {
   const [grandTotal, setGrandTotal] = useState(0);
   const orders = useSelector((state) => state.allOrders);
   const validUser = useSelector((state) => state.validUsers.user);
+
+  useEffect(() => {
+    (async () => {
+      const response = await Auth.getToken();
+      if (response) {
+        axios.interceptors.request.use(
+          (config) => {
+            config.headers.authorization = `Bearer ${response.refreshToken}`;
+            return config;
+          },
+          (error) => Promise.reject(error)
+        );
+      }
+    })();
+  }, []);
 
   function lastIndexOf(val1, val2) {
     let index = -1;
@@ -57,11 +73,8 @@ function Cart() {
     const checkoutResponse = await baseApi.post("api/meals/checkout", {
       line_items,
     });
-
     if (checkoutResponse) handleAddOrder();
-
     const { sessionId } = checkoutResponse.data;
-
     const { error } = await stripe.redirectToCheckout({
       sessionId,
     });
@@ -69,8 +82,8 @@ function Cart() {
   };
 
   const handleAddOrder = async () => {
-    const orderItems = cartOrder.map((order) => {
-      return {
+    try {
+      const orderItems = cartOrder.map((order) => ({
         meals: [
           {
             mealId: order.id,
@@ -78,25 +91,20 @@ function Cart() {
             mealType: order.type,
             mealImg: order.image,
             mealPrice: order.price,
-            mealQuantity: order.quantity,
+            mealQuantity: order.qty,
           },
         ],
         deliveryStatus: "delivered",
         paymentStatus: "paid",
         totalPrice: order.total,
-      };
-    });
+      }));
 
-    try {
       const response = await Auth.getToken();
       if (response) {
-        const config = {
-          headers: { authorization: `Bearer ${response.refreshToken}` },
-        };
-        await baseApi.post("api/orders/addorder", orderItems, config);
+        await axios.post("api/orders/addorder", ...orderItems);
       }
     } catch (err) {
-      console.error(err.response);
+      console.error(err.response.data);
     }
   };
 

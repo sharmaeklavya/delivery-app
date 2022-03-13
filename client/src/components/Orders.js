@@ -36,12 +36,12 @@ function Orders() {
             <hr className="straight-line" />
             <h5 className="section-title text-right">My Orders</h5>
           </div>
-          <section className="px-3 py-2">
+          <section className="border px-3 py-2">
             <div className="row justify-content-center align-items-center">
               {orderList.map((order) =>
                 order.meals.map((meal, i) => (
                   <React.Fragment key={i}>
-                    <div key={i} className="col col-md-3">
+                    <div key={i} className="col-md-3">
                       <div className="card my-2">
                         <img
                           className="meal-img"
@@ -50,7 +50,7 @@ function Orders() {
                         />
                       </div>
                     </div>
-                    <div className="col col-md-9">
+                    <div className="col-md-9">
                       <div className="row">
                         <div className="col-md-4">
                           <p className="meal-title">Item : {meal.mealName}</p>
