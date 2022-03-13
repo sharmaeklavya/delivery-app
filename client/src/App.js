@@ -24,7 +24,7 @@ function App() {
   useEffect(() => {
     (async () => {
       const response = await Auth.getToken();
-      if (response.refreshToken) setLoggedIn(true);
+      if (response) setLoggedIn(true);
       else setLoggedIn(false);
     })();
   }, []);

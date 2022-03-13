@@ -91,7 +91,12 @@ function Cart() {
         const config = {
           headers: { authorization: `Bearer ${response.refreshToken}` },
         };
-        await baseApi.post("api/orders/addorder", orderItems, config);
+        const res = await baseApi.post(
+          "api/orders/addorder",
+          orderItems,
+          config
+        );
+        console.log(res.data);
       }
     } catch (err) {
       console.log(err.response);
